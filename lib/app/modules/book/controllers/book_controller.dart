@@ -2,6 +2,7 @@
 
 import 'dart:ffi';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project/app/modules/book/data/models/book/book_model.dart';
 import 'package:project/app/modules/book/data/services/book_service.dart';
@@ -20,7 +21,13 @@ class BookController extends GetxController with AuthorMixin, PublisherMixin {
       final data = await _bookService.getBooks();
       _books.assignAll(data);
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      Get.snackbar(
+        'Error',
+        'Failed to get books',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
     } finally {
       isLoading.value = false;
     }
