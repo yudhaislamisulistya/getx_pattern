@@ -10,18 +10,31 @@ class BookView extends GetView<BookController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(
-          () => Text(
-            controller.publisher.value,
-          ),
-        ),
+        title: const Text('Data Buku'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'BookView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Center(
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const CircularProgressIndicator();
+          } else {
+            return ListView.builder(
+              itemCount: controller.books.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(controller.books[index].title),
+                  subtitle: Row(
+                    children: [
+                      Text(controller.books[index].author),
+                      const SizedBox(width: 10),
+                      Text(controller.books[index].publicationYear.toString()),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        }),
       ),
     );
   }

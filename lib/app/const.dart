@@ -1,0 +1,2 @@
+const String apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impxc2h2aW13cGVrbXdzeWZmZGFiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDQyNDk4ODksImV4cCI6MjAxOTgyNTg4OX0.cwOFsxJqgcxBPnGV47a8KnvzlQKoXzEs2r1cdxysVAs';
+const String baseUrl = 'https://jqshvimwpekmwsyffdab.supabase.co/rest/v1/';

@@ -1,17 +1,35 @@
+// ignore_for_file: unnecessary_overrides
+
+import 'dart:ffi';
+
 import 'package:get/get.dart';
+import 'package:project/app/modules/book/data/models/book/book_model.dart';
+import 'package:project/app/modules/book/data/services/book_service.dart';
 import 'package:project/app/modules/book/mixins/author_mixin.dart';
 import 'package:project/app/modules/book/mixins/publisher_mixin.dart';
 
 class BookController extends GetxController with AuthorMixin, PublisherMixin {
-  //TODO: Implement BookController
+  final BookService _bookService = BookService();
+  final _books = <BookModel>[].obs;
+  List<BookModel> get books => _books;
+  final isLoading = false.obs;
 
-  final count = 0.obs;
-  final title = 'BookView'.obs;
+  Future<void> getBooks() async {
+    isLoading.value = true;
+    try {
+      final data = await _bookService.getBooks();
+      _books.assignAll(data);
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();
-    getDataAuthors();
-    getDataPublishers();
+    getBooks();
   }
 
   @override
@@ -23,6 +41,4 @@ class BookController extends GetxController with AuthorMixin, PublisherMixin {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }
